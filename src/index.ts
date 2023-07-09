@@ -10,11 +10,10 @@ const WS_PORT = 3000;
 
 const ws_server = new WebSocketServer({
   port: WS_PORT
-})
+}, () => console.log(`WebSocket server run on port: ${WS_PORT}`))
 
 ws_server.on('connection', (ws) => {
-  ws.send("OK")
-  console.log("url", ws.url)
+  console.log(`New connection with websocket established`)
   ws.on("message", (message) => {
     const data = JSON.parse(message.toString())
     console.log(data, data)
