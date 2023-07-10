@@ -4,8 +4,9 @@ import { RequestData } from './types/request-data.js';
 import { RequestTypes } from './enums/request-data-types.enum.js';
 import { LoginData } from './types/login.interface.js';
 import { LoginResponseData } from './types/login-response.interface.js';
-import { json } from 'stream/consumers';
 import { JsonService } from './services/json-service.js';
+import { WinnerData } from './types/update-winners.js';
+import { Room } from './types/update-rooms.interface.js';
 
 const HTTP_PORT = 8181;
 
@@ -15,6 +16,8 @@ httpServer.listen(HTTP_PORT);
 const WS_PORT = 3000;
 
 const users: LoginData[] = []
+const winner: WinnerData[] = []
+const rooms: Room[] = []
 
 const ws_server = new WebSocketServer({
   port: WS_PORT
@@ -34,6 +37,18 @@ ws_server.on('connection', (ws) => {
         }
       )
       ws.send(JsonService.stringifyResponse(loginResponse))
+      if (users.length >= 2) {
+        const updateRoomsRes = new RequestData<Room[]>(
+            RequestTypes.UPDATE_ROOM,
+            rooms,
+          )
+        const updateWinnersRes = new RequestData<WinnerData[]>(
+          RequestTypes.UPDATE_ROOM,
+          winner,
+        )
+        ws.send(JsonService.stringifyResponse(updateRoomsRes))
+        ws.send(JsonService.stringifyResponse(updateWinnersRes))
+      }
     }
   })
 })

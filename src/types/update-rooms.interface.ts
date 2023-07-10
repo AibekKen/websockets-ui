@@ -1,11 +1,11 @@
-export type UpdateRoomsData = UpdateRooms[]
+export type UpdateRoomsData = Room[]
 
-interface UpdateRooms{
+export interface Room{
   roomId: number,
-  roomUsers: Room[]
+  roomUsers: RoomUser[]
 }
 
-interface Room {
+interface RoomUser {
   name: string;
   index: number;
 }

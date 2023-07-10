@@ -1,6 +1,6 @@
 export type UpdateWinnersData = WinnerData[]
 
-interface WinnerData {
+export interface WinnerData {
   name: string,
   wins: number,
 }
