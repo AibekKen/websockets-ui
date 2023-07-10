@@ -1,4 +1,4 @@
-export interface LoginResponseData{
+export interface LoginResponseData {
   name: string;
   index: number;
   error?: boolean;
