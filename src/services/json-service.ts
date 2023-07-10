@@ -5,7 +5,7 @@ import { RequestData } from '../types/request-data.js';
 export class JsonService {
   static parseRequest(reqStr: string) {
     const req: RequestData<string> = JSON.parse(reqStr)
-    return {...req, data: JSON.parse(req.data)}
+    return {...req, data: !!req.data ? JSON.parse(req.data) : ''}
   }
 
   static stringifyResponse(req: RequestData<any>) {
